@@ -4,7 +4,7 @@ import random
 import tkinter as tk
 from tkinter import ttk
 
-data_path = "D:\Anime"
+data_path = "D:\Anime"  // your path
 
 def button_clicked():
     folder_names = [name for name in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, name))]
