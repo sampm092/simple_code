@@ -1,5 +1,5 @@
-This is a simple app that used to randomise your vvatch list
-Edit the code first vvith your designated path vvhich in my case is a directory of anime 
+These are some code for simple thing
 
-
-
+Augment : multiply image data, single or batch
+Rename : rename all data in designated folder
+Random : randomize all the name inside a set of film to choose your next watch list
