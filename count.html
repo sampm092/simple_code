@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="time-now"></div>
+    <div id="countdown-timer"></div>
+    <script>
+        function startCountdown(targetDate) {
+            const timerElement = document.getElementById("countdown-timer");
+            const timeNow = document.getElementById("time-now");
+
+            function updateCountdown() {
+                const now = new Date();
+                const timeRemaining = targetDate - now;
+
+                if (timeRemaining <= 0) {
+                    timerElement.textContent = "Time's up!";
+                    clearInterval(intervalId);
+                    return;
+                }
+
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                timeNow.textContent = now;
+            }
+
+            // Update the countdown every second
+            const intervalId = setInterval(updateCountdown, 1000);
+            updateCountdown(); // Call it immediately to avoid delay
+        }
+
+        // Set your target date and time (e.g., January 1, 2025)
+        const targetDate = new Date("2025-01-01T00:00:00");
+        startCountdown(targetDate);
+
+
+    </script>
+</body>
+
+</html>
