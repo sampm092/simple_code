@@ -24,9 +24,25 @@
       font-size: 16px;
     }
 
+    select,
+    button {
+      cursor: pointer;
+    }
+
     textarea {
       height: 100px;
       max-width: 576px;
+      min-width: 576px;
+    }
+
+    .prm-btn {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    button:hover {
+      opacity: 80%;
     }
   </style>
 </head>
@@ -36,7 +52,7 @@
   <h1>Vowel Replacer</h1>
 
   <textarea id="inputText" placeholder="Type your text here..."></textarea>
-  <button onclick="pasText()">Paste</button>
+  <button onclick="pasText()" style="margin-bottom: 3rem;">Paste</button>
 
   <label for="vowel">Replace all vowels with:</label>
   <select id="vowel">
@@ -47,7 +63,7 @@
     <option value="u">u</option>
   </select>
 
-  <button onclick="replaceVowels()">Generate</button>
+  <button class="prm-btn" onclick="replaceVowels()">Generate</button>
 
   <h3>Output:</h3>
   <textarea id="outputText" readonly></textarea>
@@ -57,32 +73,61 @@
     async function pasText() {
       try {
         const paste = await navigator.clipboard.readText();
+
+        if (paste.trim() === '') {
+          Swal.fire({
+            title: "Alert!",
+            text: "Pasted text is blank!",
+            icon: "warning",
+            confirmButtonText: 'OK'
+          });
+          return; // stop here
+        }
+
         document.getElementById('inputText').value = paste;
+
       } catch (err) {
-        // alert('No pastable text');
-        // console.error(err);
         Swal.fire({
-        title: "Alert!",
-        text: "No Paste-able Text",
-        icon: "warning",
-        confirmButtonText: 'OK'
-    });
+          title: "Alert!",
+          text: "No Paste-able Text",
+          icon: "warning",
+          confirmButtonText: 'OK'
+        });
       }
     }
+
 
     function replaceVowels() {
       const text = document.getElementById('inputText').value;
       const chosenVowel = document.getElementById('vowel').value;
-      const replaced = text.replace(/[aeiou]/gi, match => {
-        return match === match.toUpperCase() ? chosenVowel.toUpperCase() : chosenVowel;
-      });
-      document.getElementById('outputText').value = replaced;
+      if (text.trim() !== '') {
+        if (!/[aeiou]/i.test(text)) {
+          Swal.fire({
+            title: "Alert!",
+            text: "No Vowels!",
+            icon: "warning",
+            confirmButtonText: 'OK'
+          });
+        } else {
+          const replaced = text.replace(/[aeiou]/gi, match => {
+            return match === match.toUpperCase() ? chosenVowel.toUpperCase() : chosenVowel;
+          });
+          document.getElementById('outputText').value = replaced;
+        }
+      } else {
+        Swal.fire({
+          title: "Alert!",
+          text: "No Texts!",
+          icon: "warning",
+          confirmButtonText: 'OK'
+        });
+      }
     }
 
 
 
   </script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
