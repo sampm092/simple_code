@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vowel Replacer</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 50px auto; text-align: center; }
+    input, select, button, textarea { margin: 10px 0; padding: 10px; width: 100%; font-size: 16px; }
+    textarea { height: 100px; }
+  </style>
+</head>
+<body>
+
+  <h1>Vowel Replacer</h1>
+
+  <textarea id="inputText" placeholder="Type your text here..."></textarea>
+
+  <label for="vowel">Replace all vowels with:</label>
+  <select id="vowel">
+    <option value="a">a</option>
+    <option value="e">e</option>
+    <option value="i">i</option>
+    <option value="o">o</option>
+    <option value="u">u</option>
+  </select>
+
+  <button onclick="replaceVowels()">Generate</button>
+
+  <h3>Output:</h3>
+  <textarea id="outputText" readonly></textarea>
+
+  <script>
+    function replaceVowels() {
+      const text = document.getElementById('inputText').value;
+      const chosenVowel = document.getElementById('vowel').value;
+      const replaced = text.replace(/[aeiou]/gi, match => {
+        return match === match.toUpperCase() ? chosenVowel.toUpperCase() : chosenVowel;
+      });
+      document.getElementById('outputText').value = replaced;
+    }
+  </script>
+
+</body>
+</html>
