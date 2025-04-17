@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vowel Replacer</title>
   <style>
     body {
@@ -35,7 +36,7 @@
   <h1>Vowel Replacer</h1>
 
   <textarea id="inputText" placeholder="Type your text here..."></textarea>
-  <button onclick="pasText">Paste</button>
+  <button onclick="pasText()">Paste</button>
 
   <label for="vowel">Replace all vowels with:</label>
   <select id="vowel">
@@ -52,6 +53,23 @@
   <textarea id="outputText" readonly></textarea>
 
   <script>
+
+    async function pasText() {
+      try {
+        const paste = await navigator.clipboard.readText();
+        document.getElementById('inputText').value = paste;
+      } catch (err) {
+        // alert('No pastable text');
+        // console.error(err);
+        Swal.fire({
+        title: "Alert!",
+        text: "No Paste-able Text",
+        icon: "warning",
+        confirmButtonText: 'OK'
+    });
+      }
+    }
+
     function replaceVowels() {
       const text = document.getElementById('inputText').value;
       const chosenVowel = document.getElementById('vowel').value;
@@ -61,12 +79,10 @@
       document.getElementById('outputText').value = replaced;
     }
 
-    function pasteText() {
-      const text = navigator.clipboard.readText();
-      document.getElementById('inputText').value = text;
-    }
+
 
   </script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
