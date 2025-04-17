@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+    <button onclick="pasteText()">Paste</button>
+    <label for="vowel">Replace all vowels with:</label>
+
+
+    <script>
+        async function pasteText() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('inputText').value = text;
+            } catch (err) {
+                alert('Failed to paste. Make sure you allow clipboard permissions.');
+                console.error(err);
+            }
+        }
+
+        // without async
+        // function pasteText() { 
+        //     navigator.clipboard.readText()
+        //         .then(function (text) {
+        //             document.getElementById('inputText').value = text;
+        //         })
+        //         .catch(function (err) {
+        //             console.error('Failed to read clipboard: ', err);
+        //         });
+        // }
+    </script>
+</body>
+
+</html>
