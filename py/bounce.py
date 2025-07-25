@@ -42,7 +42,7 @@ while running:
     pygame.draw.circle(screen, ball_color, ball_pos, ball_radius)
 
     pygame.display.flip()
-    clock.tick(90)
+    clock.tick(90) #frame per second
 
 pygame.quit()
 sys.exit()

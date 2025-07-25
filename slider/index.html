@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section id="movie">
+        <div class="container">
+            <div class="slider-wrapper">
+                <div class="c-header_theme-switcher">
+                    <a href="#movieSect" class="c-header_theme-swatch c-header_theme-active" onclick="moveMovie('movieSect',this)"></a>
+                    <a href="#tvSect" class="c-header_theme-swatch" onclick="moveMovie('tvSect'),this"></a>
+                    <a href="#animeSect" class="c-header_theme-swatch" onclick="moveMovie('animeSect'),this"></a>
+                </div>
+                <div class="slider">
+                    <div id="movieSect" class="containment" >
+                        <h2 class="lineA">Movies</h2>
+                        <div id="movieitems" class="items content-items"></div>
+                        <div id="moviepagination" class="content-pagination"></div>
+                    </div>
+                    <div id="tvSect" class="containment">
+                        <h2 class="lineA">TV Shows</h2>
+                        <div id="tvitems" class="items content-items"></div>
+                        <div id="tvpagination" class="content-pagination"></div>
+                    </div>
+                    <div id="animeSect" class="containment">
+                        <h2 class="lineA">Animations</h2>
+                        <div id="tvitems" class="items content-items"></div>
+                        <div id="tvpagination" class="content-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const items = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
+        const itemsPerPage = 10;
+        let currentPage = 1;
+
+        function displayItems(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = items.slice(start, end);
+
+            document.getElementById("movieitems").innerHTML = pageItems
+                .map(item => `<div>${item}</div>`)
+                .join("");
+
+            document.getElementById("tvitems").innerHTML = pageItems
+                .map(item => `<div>${item}</div>`)
+                .join("");
+
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(items.length / itemsPerPage);
+            const pagination = document.getElementById("pagination");
+
+            pagination.innerHTML = "";
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("span");
+                button.textContent = i;
+                button.className = "page-link" + (i === currentPage ? " active" : "");
+                button.addEventListener("click", () => {
+                    currentPage = i;
+                    displayItems(currentPage);
+                });
+                pagination.appendChild(button);
+            }
+        }
+
+        displayItems(currentPage);
+    </script>
+</body>
+
+</html>
