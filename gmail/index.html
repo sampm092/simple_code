@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send Email</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+    })();
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Send Gmail Message</h2>
+  <form id="contact-form">
+    <input type="text" name="user_name" placeholder="Your Name" required />
+    <input type="email" name="user_email" placeholder="Your Email" required />
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+        .then(() => {
+          alert('Email sent successfully!');
+        }, (error) => {
+          alert('Failed to send email: ' + error.text);
+        });
+    });
+  </script>
+</body>
+</html>
