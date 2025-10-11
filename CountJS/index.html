@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Counter App</h1>
+    <div id="mainNum"></div>
+    <button onclick="dec()">-</button>
+    <button onclick="inc()">+</button>
+    <div>Step<input id="stepNum" type="number"></input></div>
+    <button>Reset</button>
+    
+    <script>
+        let mainNum = document.getElementById("mainNum");
+        let stepNum = document.getElementById("stepNum");
+        
+
+        let MNum = 0;
+        let SNum = 1;
+
+        mainNum.innerHTML = MNum;
+        stepNum.value = SNum;
+
+        function inc() {
+            let stepClass = stepNum.value;
+            let step = parseInt(stepClass);
+            MNum += step;
+            mainNum.innerHTML = MNum;
+        }
+        function dec() {
+            let stepClass = stepNum.value;
+            let step = parseInt(stepClass);
+            MNum -= step;
+            mainNum.innerHTML = MNum;
+        }
+        
+    </script>
+</body>
+</html>
