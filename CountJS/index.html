@@ -1,27 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
+        * {
             margin: 3px;
+        }
+
+        .main {
+            justify-items: center;
+            border: 1px solid black;
+        }
+
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: gainsboro;
         }
     </style>
 </head>
+
 <body>
-    <h1>Counter App</h1>
-    <div id="mainNum"></div>
-    <button onclick="dec()">-</button>
-    <button onclick="inc()">+</button>
-    <div>Step<input id="stepNum" type="number"></input></div>
-    <button>Reset</button>
-    
+    <div class="main">
+        <h1>Counter App</h1>
+        <div id="mainNum"></div>
+        <div>
+            <button onclick="dec()">-</button>
+            <button onclick="inc()">+</button>
+        </div>
+        <div>Step<input id="stepNum" type="number"></input></div>
+        <div>
+            <button onclick="reset()">Reset</button>
+        </div>
+    </div>
+
     <script>
         let mainNum = document.getElementById("mainNum");
         let stepNum = document.getElementById("stepNum");
-        
+
 
         let MNum = 0;
         let SNum = 1;
@@ -41,7 +62,15 @@
             MNum -= step;
             mainNum.innerHTML = MNum;
         }
-        
+
+        function reset() {
+            MNum = 0;
+            SNum = 1;
+            mainNum.innerHTML = MNum;
+            stepNum.value = SNum;
+        }
+
     </script>
 </body>
+
 </html>
