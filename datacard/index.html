@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Car Card Example</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      width: 250px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .card:hover { background-color: #f7f7f7; }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Example Car Card -->
+  <div class="card"
+    data-card='{"id":1, "name":"Toyota Avanza 2022", "fuel":"Bensin", "capacity":7, "price":700000}'
+    onclick="openModal(event)">
+    <h2 class="carName"></h2>
+      <p><b>Bahan Bakar:</b> <span class="carFuel"></span></p>
+      <p><b>Kapasitas:</b> <span class="carCapacity"></span> orang</p>
+      <p><b>Harga Sewa:</b> Rp <span class="carPrice"></span></p>
+    </div>
+
+  <!-- Another Card -->
+  <div class="card"
+    data-card='{"id":2, "name":"Honda Brio 2021", "fuel":"Pertamax", "capacity":5, "price":450000}'
+    onclick="openModal(event)">
+    <h2 class="carName"></h2>
+      <p><b>Bahan Bakar:</b> <span class="carFuel"></span></p>
+      <p><b>Kapasitas:</b> <span class="carCapacity"></span> orang</p>
+      <p><b>Harga Sewa:</b> Rp <span class="carPrice"></span></p>
+  </div>
+  
+
+  <!-- Modal -->
+  <!-- <div class="modal" id="carModal">
+    <div class="modal-content">
+      <h2 id="carName"></h2>
+      <p><b>Bahan Bakar:</b> <span id="carsFuel"></span></p>
+      <p><b>Kapasitas:</b> <span id="carCapacity"></span> orang</p>
+      <p><b>Harga Sewa:</b> Rp <span id="carPrice"></span></p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div> -->
+
+  <script>
+     // Find all cards
+    const cards = document.querySelectorAll('.card');
+
+    // Loop through each card and fill in data
+    cards.forEach(card => {
+      const data = JSON.parse(card.getAttribute('data-card'));
+
+      card.querySelector('.carName').textContent = data.name;
+      card.querySelector('.carFuel').textContent = data.fuel;
+      card.querySelector('.carCapacity').textContent = data.capacity;
+      card.querySelector('.carPrice').textContent = data.price.toLocaleString();
+    });
+
+    // function openModal(event) {
+    //   const card = event.currentTarget;
+      // const data = JSON.parse(card.getAttribute('data-card'));
+      
+    //   // Fill modal content
+      // document.getElementById('carName').textContent = data.name;
+      // document.getElementById('carFuel').textContent = data.fuel;
+      // document.getElementById('carCapacity').textContent = data.capacity;
+      // document.getElementById('carPrice').textContent = data.price.toLocaleString();
+
+    //   // Show modal
+    //   document.getElementById('carModal').style.display = 'flex';
+    // }
+
+    // function closeModal() {
+    //   document.getElementById('carModal').style.display = 'none';
+    // }
+  </script>
+
+</body>
+</html>
