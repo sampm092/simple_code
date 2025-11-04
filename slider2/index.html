@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Native Testimonial Slider</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <section id="testimoni" class="slider">
+        <div class="slides">
+            <div class="slide">
+                <p>
+                    Sopir dari RAGA Rent Bandar Lampung sangat ramah dan profesional. Mobil bersih dan nyaman. Proses
+                    booking cepat dan tidak ribet.
+                </p>
+                <div class="author">
+                    <img src="./assets/images/testimonials/testimonial-4.webp" alt="Lia Kartika Sari">
+                    <div><span class="name">Lia Kartika Sari</span><span class="job">Dosen</span></div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <p>
+                    Saya sewa mobil lepas kunci dari RAGA Rent Bandar Lampung. Mobil bersih dan dalam kondisi baik.
+                    Proses cepat, harga bersaing!
+                </p>
+                <div class="author">
+                    <img src="./assets/images/testimonials/testimonial-5.webp" alt="Bambang Rahmat Hidayat">
+                    <div><span class="name">Bambang Rahmat Hidayat</span><span class="job">Karyawan Swasta</span></div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <p>
+                    Kendaraan dari RAGA Rent Bandar Lampung selalu bersih dan nyaman. Saya memilih rental tanpa sopir
+                    agar lebih leluasa. Sangat puas!
+                </p>
+                <div class="author">
+                    <img src="./assets/images/testimonials/testimonial-3.webp" alt="Hendra Tri Santoso">
+                    <div><span class="name">Hendra Tri Santoso</span><span class="job">Pengusaha</span></div>
+                </div>
+            </div>
+        </div>
+
+        <button class="nav-btn prev" aria-label="Previous">&#10094;</button>
+        <button class="nav-btn next" aria-label="Next">&#10095;</button>
+
+        <div class="dots" aria-hidden="false"></div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slidesContainer = document.querySelector('.slides');
+            const slides = Array.from(document.querySelectorAll('.slide'));
+            const prevBtn = document.querySelector('.prev');
+            const nextBtn = document.querySelector('.next');
+            const dotsContainer = document.querySelector('.dots');
+
+            let current = 0;
+            const total = slides.length;
+
+            // build dots
+            slides.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.addEventListener('click', () => goTo(i));
+                dotsContainer.appendChild(btn);
+            });
+            const dots = Array.from(dotsContainer.children);
+
+            function updateUI() {
+                // translate slides container
+                slidesContainer.style.transform = `translateX(-${current * 100}%)`;
+                // update dots
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+            }
+
+            function goTo(i) {
+                current = (i + total) % total;
+                updateUI();
+                resetAuto(); // optional: reset auto timer on manual change
+            }
+
+            prevBtn.addEventListener('click', () => goTo(current - 1));
+            nextBtn.addEventListener('click', () => goTo(current + 1));
+
+            // auto slide
+            let auto = setInterval(() => goTo(current + 1), 5000);
+            function resetAuto() {
+                clearInterval(auto);
+                auto = setInterval(() => goTo(current + 1), 5000);
+            }
+
+            // initial UI
+            goTo(0);
+        });
+    </script>
+
+</body>
+
+</html>
