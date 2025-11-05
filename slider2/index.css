@@ -56,31 +56,6 @@
     right: -6px;
     bottom: -6px;
 }
-
-.author {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    justify-content: center;
-}
-
-.author img {
-    width: 56px;
-    height: 56px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.name {
-    font-weight: 600;
-    display: block;
-}
-
-.job {
-    color: #f5d98e;
-    font-size: .9rem;
-}
-
 /* nav */
 .nav-btn {
     position: absolute;
