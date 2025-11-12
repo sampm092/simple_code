@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="200" style="border:1px solid #000;"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let x = -200; // Start position (off-screen to the left)
+        const text = "Hello, Canvas!";
+        const speed = 3; // How fast text moves
+
+        function drawText() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "blue";
+            ctx.fillText(text, x, 100);
+
+            // Move text to the right
+            if (x < 150) { // Stop when it reaches position 150
+                x += speed;
+                requestAnimationFrame(drawText);
+            }
+        }
+
+        drawText(); // Start animation
+    </script>
+
+
+</body>
+
+</html>
