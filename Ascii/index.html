@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        text-align: center;
+        background-color: gainsboro;
+    }
+
+    input,
+    select,
+    button,
+    textarea {
+        margin: 10px 0;
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    select,
+    button {
+        cursor: pointer;
+    }
+
+    textarea {
+        height: 100px;
+        max-width: 576px;
+        min-width: 576px;
+    }
+
+    .prm-btn {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    button:hover {
+        opacity: 80%;
+    }
+</style>
+
+<body>
+    <textarea id="input" name="input" placeholder="Type character here..."></textarea>
+    <h3>Output:</h3>
+    <button onclick="changeAscii()">Transform</button>
+    <textarea id="outputText" readonly></textarea>
+</body>
+
+<script>
+    function changeAscii() {
+        let text = document.getElementById('input').value;
+        let asciied = "";
+        for (let i = 0; i < text.length; i++) {
+            asciied += (`Character: ${text[i]}, ASCII: ${text.charCodeAt(i)}\n`);
+        }
+        document.getElementById('outputText').value = asciied;
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</html>
