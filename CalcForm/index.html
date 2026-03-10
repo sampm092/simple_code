@@ -73,11 +73,20 @@
             cursor: pointer;
             background: #fff;
         }
+
+        .delete {
+            background-color: inherit;
+            color: #ff0000;
+            width: fit-content;
+            margin: auto 0 auto auto;
+            border: 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="logShow" onclick="toggleLog()">
+        <!-- icon  -->
         log
     </div>
     <section class="container">
@@ -103,7 +112,10 @@
             <textarea id="outputText" readonly></textarea>
         </div>
         <div class="log" id="logSect">
-            <h2>Log:</h2>
+            <div style="display: flex;">
+                <h2>Log:</h2>
+                <button class="delete" onclick="clearLog()">Clear</button>
+            </div>
             <textarea name="" id="log" rows="25" wrap="off" readonly></textarea>
         </div>
     </section>
@@ -120,7 +132,7 @@
 
                 setTimeout(() => {
                     logSect.style.transform = "translateX(0)";
-                }, 10); 
+                }, 10);
 
             } else {
 
@@ -128,8 +140,28 @@
 
                 setTimeout(() => {
                     logSect.style.display = "none";
-                }, 300); 
+                }, 300);
             }
+        }
+
+        function clearLog() {
+            Swal.fire({
+                title: "You sure?",
+                text: "Clear log record",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                cancelButtonText: "Back",
+                confirmButtonColor: "#007bff",
+                // cancelButtonCOlor: "#ef4444",
+                // background: "#03300f", // dark background
+                // color: "#fff",      // text color
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    logrecord = [];
+                    logText.value = logrecord;
+                }
+            });
         }
 
         function calculate() {
@@ -181,11 +213,7 @@
                 calculate();
             }
         });
-
-
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
-
 </html>
