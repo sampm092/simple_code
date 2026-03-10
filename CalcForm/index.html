@@ -29,7 +29,8 @@
             cursor: pointer;
         }
 
-        input, textarea {
+        input,
+        textarea {
             max-width: 576px;
             min-width: 576px;
         }
@@ -68,14 +69,15 @@
 
     <script>
         function calculate() {
-            const in1 = parseInt(document.getElementById('input1').value);
+            // input type number still take string, so parse it into integer first with:
+            const in1 = +document.getElementById('input1').value;
             const in2 = parseInt(document.getElementById('input2').value);
+            // or
+            // const in = Number(document.getElementById('input').value);
             const chosenOps = document.getElementById('ops').value;
             const output = document.getElementById('outputText');
 
-            let result = '';
-
-            if (!isNaN(in1) && !isNaN(in2)) {
+            if (!isNaN(in1) && !isNaN(in2)) { //prevent null value
                 switch (chosenOps) {
                     case '0':
                         result = in1 + in2;
@@ -103,9 +105,6 @@
             }
             output.value = result;
         }
-
-
-
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
