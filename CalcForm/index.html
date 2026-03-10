@@ -50,21 +50,36 @@
 
         .container {
             display: flex;
+            overflow-x: hidden;
         }
 
         .main {
             max-width: 600px;
             margin: 50px auto;
             text-align: center;
+            transition: margin 0.3s ease-in-out;
         }
 
-        .log{
+        .log {
             margin: auto;
+            display: none;
+            transform: translateX(150%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .logShow {
+            position: fixed;
+            right: 1.25rem;
+            cursor: pointer;
+            background: #fff;
         }
     </style>
 </head>
 
 <body>
+    <div class="logShow" onclick="toggleLog()">
+        log
+    </div>
     <section class="container">
         <div class="main">
             <h1>Calc</h1>
@@ -75,11 +90,11 @@
 
             <label for="ops">Operation:</label>
             <select id="ops">
-                <option value="0">+</option>
-                <option value="1">-</option>
-                <option value="2">*</option>
-                <option value="3">/</option>
-                <option value="4">%</option>
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+                <option value="%">%</option>
             </select>
 
             <button id="calcBtn" class="prm-btn" onclick="calculate()">Generate</button>
@@ -87,13 +102,36 @@
             <h3>Output:</h3>
             <textarea id="outputText" readonly></textarea>
         </div>
-        <div class="log">
+        <div class="log" id="logSect">
             <h2>Log:</h2>
-            <textarea name="" id="log" rows="25" readonly></textarea>
+            <textarea name="" id="log" rows="25" wrap="off" readonly></textarea>
         </div>
     </section>
 
     <script>
+        let logrecord = [];
+        const logText = document.getElementById('log');
+        const logSect = document.getElementById('logSect');
+
+        function toggleLog() {
+            if (logSect.style.display === "none" || logSect.style.display === "") {
+
+                logSect.style.display = "block";
+
+                setTimeout(() => {
+                    logSect.style.transform = "translateX(0)";
+                }, 10); 
+
+            } else {
+
+                logSect.style.transform = "translateX(150%)";
+
+                setTimeout(() => {
+                    logSect.style.display = "none";
+                }, 300); 
+            }
+        }
+
         function calculate() {
             // input type number still take string, so parse it into integer first with:
             const in1 = +document.getElementById('input1').value;
@@ -105,19 +143,19 @@
 
             if (!isNaN(in1) && !isNaN(in2)) { //prevent null value
                 switch (chosenOps) {
-                    case '0':
+                    case '+':
                         result = in1 + in2;
                         break;
-                    case '1':
+                    case '-':
                         result = in1 - in2;
                         break;
-                    case '2':
+                    case '*':
                         result = in1 * in2;
                         break;
-                    case '3':
+                    case '/':
                         result = in1 / in2;
                         break;
-                    case '4':
+                    case '%':
                         result = in1 % in2;
                         break;
 
@@ -134,6 +172,8 @@
                 });
             }
             output.value = result;
+            logrecord += (`${in1} ${chosenOps} ${in2} = ${result}\n`);
+            logText.value = logrecord;
         }
 
         document.addEventListener("keydown", function (e) {
@@ -141,6 +181,8 @@
                 calculate();
             }
         });
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
