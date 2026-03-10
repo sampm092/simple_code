@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="relative z-10 bg-scroll bg-center bg-cover px-6 py-12 bg-[url('../images/_OSL8132.webp')]">
+        <div class="absolute inset-0 bg-[#ffffffee] z-10"></div>
+        <!-- Content -->
+        <div class="relative z-10">
+            <div class="reveal flex flex-col justify-center items-center -space-y-3 pt-6 pb-2">
+                <span class="font-kalesta text-4xl text-[#5c4727]">Ucapan <span class="font-miama">&</span> Do'a</span>
+            </div>
+
+            <p
+                class="reveal text-base/8 mx-2 text-[#5c4727] text-center font-lato tracking-wide mb-8 text-sm font-extralight">
+                Berikan ucapan dan do'a terbaikmu
+            </p>
+
+            <div class="reveal mt-4">
+                <input aria-comment-name type="text" placeholder="Nama Lengkap"
+                    class="text-[#5c4727] font-lato bg-white w-full border border-[#5c4727ee] px-4 py-2">
+            </div>
+
+            <div class="reveal mt-2">
+                <textarea aria-comment-description placeholder="Ucapan dan doa"
+                    class="text-[#5c4727] font-lato bg-white w-full border border-[#5c4727ee] px-4 py-2 resize-none w-full h-32"></textarea>
+            </div>
+
+            <div class="reveal mt-4">
+                <button aria-comment-button
+                    class="cursor-pointer text-white font-kalesta bg-[#200907] w-full border border-[#5c4727ee] px-4 py-2 active:bg-[#200907aa]">Kirimkan
+                    Ucapan</button>
+            </div>
+
+            <img src="./assets/images/decoration/divider.png" class="reveal m-auto w-32 my-8" alt="">
+
+            <div aria-comment-container class="reveal max-h-64 overflow-y-scroll no-scrollbar">
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+const guestNamePlacer = () => {
+  const guestName = new URLSearchParams(window.location.search);
+  const guestNameSection = document.querySelector('[aria-guest-name]');
+  guestNameSection.innerHTML = guestName.get('to')
+}
+
+const countdownTimer = () => {
+  const timeFormatter = (number) => number <= 0 ? '00' : String(number).padStart(2, '0');
+
+  let countDownDate = new Date("Aug 2, 2025 09:00:00").getTime();
+
+  // Update the count down every 1 second
+  let timer = setInterval(function () {
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.querySelector('[aria-count-day]').innerText = timeFormatter(days);
+    document.querySelector('[aria-count-hour]').innerText = timeFormatter(hours);
+    document.querySelector('[aria-count-minute]').innerText = timeFormatter(minutes);
+    document.querySelector('[aria-count-second]').innerText = timeFormatter(seconds);
+  }, 1000);
+}
+
+const openInvitation = () => {
+  document.querySelector('audio').play();
+  const introInvitation = document.querySelector('[aria-intro-overlay]');
+
+  introInvitation.style.transitionDuration = `2000ms`;
+  introInvitation.style.transitionTimingFunction = 'cubic-bezier(0.77, 0, 0.175, 1)';
+  introInvitation.classList.add('-translate-y-300');
+  introInvitation.classList.add('opacity-0');
+  setTimeout(() => {
+    introInvitation.classList.add('hidden');
+  }, 2000);
+}
+
+const mapComments = () => {
+  const comments = sessionStorage.getItem('comments')
+  const comment = JSON.parse(comments).map(element => `
+    <div class="flex flex-col py-8 border-b border-[#5c4727]">
+      <span class="font-kalesta text-xl mb-2 text-[#200907]">${element.name}</span>
+      <span class="font-lato text-sm text-[#000000aa]">${element.comment}</span>
+    </div>
+  `);
+
+  document.querySelector('[aria-comment-container]').innerHTML = comment.join('');
+}
+
+const getComments = () => {
+  fetch('https://api.jsonbin.io/v3/b/687464106063391d31ad197e', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Access-Key': '$2a$10$bMgLrni0omdKWdJvDKMvJOSxAzKA2UhkUgaT7L9MiQe2PrhuV9v3O',
+      'X-Master-Key': '$2a$10$rXwY9muENS84mMVUNcLYhOIW59lg8OnRxsxwCXZtEztESfpPvtXMi',
+    }
+  }).then(e => e.json())
+    .then(result => {
+      sessionStorage.setItem('comments', JSON.stringify(result.record));
+      mapComments();
+    }).then(err => console.log(err));
+}
+
+const submitComment = () => {
+
+}
+
+window.onload = () => {
+  const overlay = document.querySelector('[aria-loading]');
+  overlay.style.transition = 'opacity 0.5s ease';
+  overlay.style.opacity = '0';
+  setTimeout(() => {
+    overlay.style.display = 'none';
+  }, 500);
+
+  guestNamePlacer();
+  countdownTimer();
+  getComments();
+
+  document.querySelector('[aria-comment-button]').addEventListener('click', (e) => {
+    const name = document.querySelector('[aria-comment-name]');
+    const description = document.querySelector('[aria-comment-description]');
+
+    if (!name.value || !description.value || name.value.length < 3 || description.value.length < 3) {
+      alert('Nama atau ucapan tidak boleh kosong dan harus lebih dari 3 karakter!');
+      return;
+    }
+
+    const comments = JSON.parse(sessionStorage.getItem('comments'));
+    comments.push({
+      name: name.value,
+      comment: description.value
+    });
+
+    fetch('https://api.jsonbin.io/v3/b/687464106063391d31ad197e', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Key': '$2a$10$bMgLrni0omdKWdJvDKMvJOSxAzKA2UhkUgaT7L9MiQe2PrhuV9v3O',
+        'X-Master-Key': '$2a$10$rXwY9muENS84mMVUNcLYhOIW59lg8OnRxsxwCXZtEztESfpPvtXMi',
+      },
+      body: JSON.stringify(comments)
+    }).then(e => e.json()).then(e => {
+      console.log('what', e);
+      name.value = '';
+      description.value = '';
+      sessionStorage.setItem('comments', JSON.stringify(e.record));
+      mapComments();
+    }).catch(err => console.log(err));
+  });
+}
+</script>
+
+</html>
