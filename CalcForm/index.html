@@ -4,13 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vowel Replacer</title>
+    <title>Calc</title>
     <style>
         body {
             font-family: sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            text-align: center;
             background-color: gainsboro;
         }
 
@@ -22,6 +19,7 @@
             padding: 10px;
             width: 100%;
             font-size: 16px;
+            min-height: 18px;
         }
 
         select,
@@ -44,28 +42,56 @@
         button:hover {
             opacity: 80%;
         }
+
+        h1,
+        h4 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .main {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .log{
+            margin: auto;
+        }
     </style>
 </head>
 
 <body>
+    <section class="container">
+        <div class="main">
+            <h1>Calc</h1>
+            <h4>is short for calculator</h4>
 
-    <h1>Calculator</h1>
+            <input type="number" id="input1" placeholder="Insert number here..."></input>
+            <input type="number" id="input2" placeholder="Insert number here..."></input>
 
-    <input type="number" id="input1" placeholder="Insert number here..."></input>
-    <input type="number" id="input2" placeholder="Insert number here..."></input>
+            <label for="ops">Operation:</label>
+            <select id="ops">
+                <option value="0">+</option>
+                <option value="1">-</option>
+                <option value="2">*</option>
+                <option value="3">/</option>
+                <option value="4">%</option>
+            </select>
 
-    <label for="ops">Operation:</label>
-    <select id="ops">
-        <option value="0">+</option>
-        <option value="1">-</option>
-        <option value="2">*</option>
-        <option value="3">/</option>
-    </select>
+            <button id="calcBtn" class="prm-btn" onclick="calculate()">Generate</button>
 
-    <button class="prm-btn" onclick="calculate()">Generate</button>
-
-    <h3>Output:</h3>
-    <textarea id="outputText" readonly></textarea>
+            <h3>Output:</h3>
+            <textarea id="outputText" readonly></textarea>
+        </div>
+        <div class="log">
+            <h2>Log:</h2>
+            <textarea name="" id="log" rows="25" readonly></textarea>
+        </div>
+    </section>
 
     <script>
         function calculate() {
@@ -91,6 +117,9 @@
                     case '3':
                         result = in1 / in2;
                         break;
+                    case '4':
+                        result = in1 % in2;
+                        break;
 
                     default:
                         break;
@@ -100,11 +129,18 @@
                     title: "Alert!",
                     text: "No Number!",
                     icon: "warning",
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'Back',
+                    allowEnterKey: false
                 });
             }
             output.value = result;
         }
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                calculate();
+            }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
