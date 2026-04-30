@@ -10,7 +10,7 @@
 <body>
     <div id="app"></div>
 
-    
+
     <!-- Babel Script -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -19,14 +19,36 @@
     const domNode = document.getElementById('app');
     
      /* Header is for React to distinguish it with header(HTML)*/
-    function Header() { 
-        return <h1>Develop. Preview. Ship.</h1>;
+    function Header(props) { 
+        return <h1>{`Cool ${props.title}`}</h1>;
+    }
+
+    function SubTitle(subprops){
+        const a = subprops.title;
+        return <h2>{a ? a : 'Default Sub-Title'} </h2>
+    }
+
+    function HomePage() {
+        const arrayName = ['Asu', 'Koke', 'Ayama', 'Taure']
+        return (
+            <div> HomePage
+                {/* Nesting the Header component */}
+                <Header title="Dev Sonethign somthing" />
+                <SubTitle />
+                <Header title="Second Title" />
+                <ul>
+                    {arrayName.map((insides) => 
+                        <li key={insides}>{insides}</li>
+                        )}
+                </ul>
+            </div>
+        );
     }
 
     // Target a specific DOM element and create a root to display your React Components in
     const root = ReactDOM.createRoot(app);
     // Its just react way to call header function
-    root.render(<Header />); 
+    root.render(<HomePage />); 
   
  
     </script>
