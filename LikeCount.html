@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="inc()">Likes 
+        <span id="Like">
+            0
+        </span>
+    </button>
+
+
+    <script>
+        const elementA = document.getElementById("Like");
+        let likes = 0;
+        function inc() {
+            likes += 1;
+            likes.toString();
+            elementA.innerHTML = likes;
+            console.log(likes);
+        }
+    </script>
+</body>
+
+</html>
