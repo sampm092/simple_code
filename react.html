@@ -16,6 +16,7 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script type="text/jsx">
+    // <script>
     const domNode = document.getElementById('app');
     
      /* Header is for React to distinguish it with header(HTML)*/
@@ -28,8 +29,16 @@
         return <h2>{a ? a : 'Default Sub-Title'} </h2>
     }
 
+    
     function HomePage() {
         const arrayName = ['Asu', 'Koke', 'Ayama', 'Taure']
+        // const array[value, updateFunction] = React.useState(initalValue)
+        const [likes, setLikes] = React.useState(0); 
+
+        function HandleClick(){
+            setLikes(likes+1);
+        }
+
         return (
             <div> HomePage
                 {/* Nesting the Header component */}
@@ -41,6 +50,7 @@
                         <li key={insides}>{insides}</li>
                         )}
                 </ul>
+                <button onClick={HandleClick}>Like {likes}</button>
             </div>
         );
     }
