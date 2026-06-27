@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .cards {
+            display: flex;
+            gap: 1rem;
+            padding-left: 15px;
+            padding-right: 15px;
+            width: max-content;
+            padding-block: 10rem;
+        }
+
+        .horizontal-scroll2 {
+            width: 100%;
+            overflow: scroll;
+            scrollbar-color: transparent transparent;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            width: 200px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            border: 2px solid pink;
+            position: relative;
+            overflow: visible;
+            background: linear-gradient(180deg, skyblue, pink);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .card div{
+            width: 100%;
+            height: 100%;
+        }
+
+        .height{
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .card:hover {
+            border-radius: 20px;
+            border: 2px solid pink;
+            position: relative;
+            overflow: visible;
+            background: linear-gradient(180deg, skyblue, pink);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            transition: transform 200ms ease;
+        }
+
+        .shoes {
+            z-index: 1;
+            width: 100px;
+            transform: scale(1);
+            transition: transform 0.45s ease;
+        }
+
+        .card:hover .shoes {
+            transform: scale(2);
+        }
+
+        .bg-text {
+            margin-top: 2rem;
+            z-index: 2;
+        }
+
+        h3, p{
+            margin: 0;
+        }
+    </style>
+    <div class="horizontal-scroll2">
+        <div class="cards">
+            <div class="card">
+                <div class="height">
+                    <img src="C:\Users\ACER\Downloads\belle.png" class="shoes" alt="picture">
+                </div>
+                <div class="bg-text">
+                    <h3>ABC</h3>
+                    <p>ababsbsadbasdbb</p>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+</html>
