@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vowel Replacer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      text-align: center;
+      background-color: gainsboro;
+    }
+
+    input,
+    select,
+    button,
+    textarea {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    select,
+    button {
+      cursor: pointer;
+    }
+
+    textarea {
+      height: 20px;
+      max-width: 576px;
+      min-width: 576px;
+    }
+
+    .prm-btn {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    button:hover {
+      opacity: 80%;
+    }
+
+    #outputText {
+      height: 160px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Letter Maker</h1>
+
+  <textarea id="perusahaanInput" placeholder="Type your text here..."></textarea>
+  <textarea id="jabatanInput" placeholder="Type your text here..."></textarea>
+
+  <label for="vowel">Choose your letter type:</label>
+  <select id="vowel">
+    <option value="lamaran">Surat Lamaran</option>
+    <option value="reminder">Surat Reminder</option>
+  </select>
+
+  <button class="prm-btn" onclick="replaceVowels()">Generate</button>
+
+  <h3>Output:</h3>
+  <textarea id="outputText" readonly></textarea>
+
+  <script>
+    function replaceVowels() {
+      const perusahaan = document.getElementById('perusahaanInput').value;
+      const jabatan = document.getElementById('jabatanInput').value;
+      const chosenVowel = document.getElementById('vowel').value;
+      const now = new Date();
+      const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+      const day = now.getDate();
+      const month = months[now.getMonth()];
+      const year = now.getFullYear();
+
+      const formattedDate = `${day} ${month} ${year}`;
+
+      let replaced = '';
+      let text = 
+`
+Yth. HRD / Personalia PERUSAHAAN
+di tempat
+
+Dengan hormat,
+Berdasarkan informasi lowongan kerja yang saya dapatkan melalui LinkedIn pada tanggal TIME, dengan ini saya bermaksud mengajukan diri untuk mengisi posisi JABATAN di PERUSAHAAN.
+`;
+      if (perusahaan.trim() !== '' && jabatan.trim() !== '') {
+        replaced = text.replace('JABATAN', jabatan);
+        replaced = replaced.replaceAll('PERUSAHAAN', perusahaan);
+        replaced = replaced.replace('TIME', formattedDate);
+        document.getElementById('outputText').value = replaced;
+      } else {
+        Swal.fire({
+          title: "Alert!",
+          text: "No Texts!",
+          icon: "warning",
+          confirmButtonText: 'OK'
+        });
+      }
+    }
+
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>
