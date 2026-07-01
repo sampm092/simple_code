@@ -48,6 +48,25 @@
     #outputText {
       height: 160px;
     }
+
+    #copyNotification {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    #copyNotification.show {
+      opacity: 1;
+    }
   </style>
 </head>
 
@@ -58,8 +77,8 @@
   <textarea id="perusahaanInput" placeholder="Type your text here..."></textarea>
   <textarea id="jabatanInput" placeholder="Type your text here..."></textarea>
 
-  <label for="vowel">Choose your letter type:</label>
-  <select id="vowel">
+  <label for="option">Choose your letter type:</label>
+  <select id="option">
     <option value="lamaran">Surat Lamaran</option>
     <option value="reminder">Surat Reminder</option>
   </select>
@@ -68,12 +87,14 @@
 
   <h3>Output:</h3>
   <textarea id="outputText" readonly></textarea>
+  <button onclick="copText()" style="margin-bottom: 3rem;">Copy</button>
+    <div id="copyNotification">Copied!</div>
 
   <script>
     function replaceVowels() {
       const perusahaan = document.getElementById('perusahaanInput').value;
       const jabatan = document.getElementById('jabatanInput').value;
-      const chosenVowel = document.getElementById('vowel').value;
+      const option = document.getElementById('option').value;
       const now = new Date();
       const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
@@ -84,19 +105,24 @@
       const formattedDate = `${day} ${month} ${year}`;
 
       let replaced = '';
-      let text = 
-`
+
+      if (perusahaan.trim() !== '' && jabatan.trim() !== '') {
+        if (option == 'lamaran') {
+          let text =
+            `
 Yth. HRD / Personalia PERUSAHAAN
 di tempat
 
 Dengan hormat,
 Berdasarkan informasi lowongan kerja yang saya dapatkan melalui LinkedIn pada tanggal TIME, dengan ini saya bermaksud mengajukan diri untuk mengisi posisi JABATAN di PERUSAHAAN.
 `;
-      if (perusahaan.trim() !== '' && jabatan.trim() !== '') {
-        replaced = text.replace('JABATAN', jabatan);
-        replaced = replaced.replaceAll('PERUSAHAAN', perusahaan);
-        replaced = replaced.replace('TIME', formattedDate);
-        document.getElementById('outputText').value = replaced;
+          replaced = text.replace('JABATAN', jabatan);
+          replaced = replaced.replaceAll('PERUSAHAAN', perusahaan);
+          replaced = replaced.replace('TIME', formattedDate);
+          document.getElementById('outputText').value = replaced;
+        } else if (option == 'reminder') {
+
+        }
       } else {
         Swal.fire({
           title: "Alert!",
@@ -107,6 +133,16 @@ Berdasarkan informasi lowongan kerja yang saya dapatkan melalui LinkedIn pada ta
       }
     }
 
+    async function copText() {
+      const textOutput = document.getElementById("outputText").value;
+      navigator.clipboard.writeText(textOutput).then(() => {
+        const notification = document.getElementById("copyNotification");
+        notification.classList.add("show");
+        setTimeout(() => {
+          notification.classList.remove("show");
+        }, 2000); // 2 seconds
+      });
+    }
 
 
   </script>
